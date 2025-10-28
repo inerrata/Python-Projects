@@ -2,9 +2,10 @@ import random
 
 given_number = random.randint(256, 1024)
 
-print("Given number: ", given_number)
+print("The given number is ", given_number)
 
-mynum = print(float(input("Input your number: ")))
+print("Input your number: ")
+mynum = float(input())
 
 if mynum == given_number:
     print("The input is the same as the given number is True")
