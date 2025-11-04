@@ -8,7 +8,7 @@ print("Input your number: ")
 mynum = float(input())
 
 if mynum == given_number:
-    print("The input is the same as the given number is True")
+    print("The input is the same as the given number is True", mynum == given_number)
 else:
     print("The input is the same as the given number is False")
 

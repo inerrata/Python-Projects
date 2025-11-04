@@ -14,3 +14,4 @@ print("The values are: ", input_1, input_2, input_3)
 
 print("The outcome of calculation 1 is: ", calc1)
 print("The outcome of calculation 2 is: ", calc2)
+
