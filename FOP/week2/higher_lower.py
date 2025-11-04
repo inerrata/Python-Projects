@@ -29,8 +29,8 @@ while True:
 
     if guess < secret_number:  # Guess if lower
         print(f"{guess} is incorrect, the number is higher.")
-        if counter == 5:
-            print(f"You have tried to following numbers: {' '.join(str(i) for i in guess_list)}"  # iterates each element i in list, converts to string and concats with separator
+        if counter == 5:  # iterates each element i in list, converts to string and concats with separator
+            print(f"You have tried to following numbers: {' '.join(str(i) for i in guess_list)}"
                   f" to guess the secret number {secret_number}!")
             print("You lost :(")
             points = 0
