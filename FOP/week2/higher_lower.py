@@ -14,7 +14,6 @@ secret_number = random.randint(1, max_number)
 guess_list = []
 counter = 0
 
-
 while True:
 
     point_list = [10, 8, 5, 2, 1]
