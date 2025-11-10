@@ -134,7 +134,7 @@ if __name__ == "__main__":
     
     # Add Trainers
     add_trainer(trainers, "Ash", 1, pokemons, [1, 2])
-    add_trainer(trainers, "Brock", 2, pokemons, [3])
+    add_trainer(trainers, "Brock", 2, pokemons, [3, 4])
     
     # Print Pokemon
     for i, p in pokemons.items():  # use .items() to print both the id and the pokemon itself
