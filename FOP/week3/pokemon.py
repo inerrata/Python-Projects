@@ -3,26 +3,26 @@
 # ---------------
 
 class Pokemon:
-    def __init__(self,name,level):
+    def __init__(self, name, level):
         self.__name = name  # Use __ to prevent it from being accessed unless strictly done
         self.__level = level
         self.__moves = set()  # Use a set to prevent duplicates when appending
-        
-    def add_move(self,move):
+
+    def add_move(self, move):
         self.__moves.add(move)
-        
+
     def __repr__(self):
-        return f"{self.__name} (Level:  {self.__level}| Moves:   {self.__moves})"
-    
+        return f"{self.__name} (Level: {self.__level}| Moves: {self.__moves})"
+
 class Trainer:
-    def __init__(self,name,owned):
+    def __init__(self, name, owned):
         self.__name = name
         self.__pokemons = owned
-    
+
     def __repr__(self):
-        return f"{self.__name} pokemons:    {self.__pokemons}"
-    
-    
+        return f"{self.__name} pokemons: {self.__pokemons}"
+
+
 # ---------------
 # Script
 # ---------------
@@ -33,11 +33,11 @@ class Trainer:
 def add_move(pokemon_mapping, unique_moves, pokemon_id, move):
     # Check if pokemon exists
     if pokemon_id not in pokemon_mapping:
-        print(f"Error:    Pokemon ID {pokemon_id} not found!")
+        print(f"Error: Pokemon ID {pokemon_id} not found!")
         return
-        
+
     pokemon = pokemon_mapping[pokemon_id]
-        
+
     # Add move both to pokemon and unique move set list
     pokemon.add_move(move)
     unique_moves.add(move)
@@ -47,7 +47,7 @@ def add_move(pokemon_mapping, unique_moves, pokemon_id, move):
 
 def add_trainer(trainer_mapping, trainer_name, trainer_id, pokemon_mapping, pokemon_ids):
     if trainer_id in trainer_mapping:
-        print(f"Error:    Trainer ID {trainer_id} already exists!")
+        print(f"Error: Trainer ID {trainer_id} already exists!")
         return
 
     for i in pokemon_ids:
@@ -56,7 +56,7 @@ def add_trainer(trainer_mapping, trainer_name, trainer_id, pokemon_mapping, poke
             return
 
     owned_pokemon = [pokemon_mapping[i] for i in pokemon_ids]
-    trainer = trainer_mapping[trainer_id] = Trainer(trainer_name, owned_pokemon)
+    trainer_mapping[trainer_id] = Trainer(trainer_name, owned_pokemon)
     
     
 def strongest_pokemon(pokemon_mapping):
@@ -67,7 +67,7 @@ def strongest_pokemon(pokemon_mapping):
     for i in pokemon_mapping.values():
         if i._Pokemon__level > max_level:  
             max_level = i._Pokemon__level
-            strongest = i # If Pokemon at index i has higher max level, set strongest at this index
+            strongest = i  # If Pokemon at index i has higher max level, set strongest at this index
     
     return strongest
 
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     add_move(pokemons, unique_moves, 3, "Scratch")
     
     # Add Trainers
-    add_trainer(trainers, "Ash", 1, pokemons, [1,2])
+    add_trainer(trainers, "Ash", 1, pokemons, [1, 2])
     add_trainer(trainers, "Brock", 2, pokemons, [3])
     
     # Print Pokemon
