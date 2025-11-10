@@ -29,6 +29,16 @@ class Trainer:
 
 
 # Mapping
+def add_pokemon(pokemon_mapping, name, pokemon_id, level):
+    
+    # Check if it exists
+    if pokemon_id in pokemon_mapping:
+        print(f"Error: Pokemon ID {pokemon_id} already exists!")
+        return
+
+    # Adding pokemon
+    pokemon_mapping[pokemon_id] = Pokemon(name, level)
+
 
 def add_move(pokemon_mapping, unique_moves, pokemon_id, move):
     # Check if pokemon exists
@@ -107,9 +117,10 @@ if __name__ == "__main__":
     unique_moves = set()
     
     # Add Pokemon
-    pokemons[1] = Pokemon("Pikachu", 5)
-    pokemons[2] = Pokemon("Bulbasaur", 6)
-    pokemons[3] = Pokemon("Charmander", 7)
+    add_pokemon(pokemons, "Pikachu", 1, 5)
+    add_pokemon(pokemons, "Bulbasaur", 2, 8)
+    add_pokemon(pokemons, "Charmander", 3, 5)
+    add_pokemon(pokemons, "Squirtle", 4, 6)
     
     # Add Moves
     add_move(pokemons, unique_moves, 1, "Thunder Shock")
@@ -118,6 +129,8 @@ if __name__ == "__main__":
     add_move(pokemons, unique_moves, 2, "Tackle")
     add_move(pokemons, unique_moves, 3, "Ember")
     add_move(pokemons, unique_moves, 3, "Scratch")
+    add_move(pokemons, unique_moves, 4, "Water Gun")
+    add_move(pokemons, unique_moves, 4, "Bubble")
     
     # Add Trainers
     add_trainer(trainers, "Ash", 1, pokemons, [1, 2])
