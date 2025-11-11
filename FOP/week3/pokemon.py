@@ -65,7 +65,7 @@ def add_trainer(trainer_mapping, trainer_name, trainer_id, pokemon_mapping, poke
             print(f"Pokemon ID {i} not found!")
             return
 
-    owned_pokemon = [pokemon_mapping[i] for i in pokemon_ids]
+    owned_pokemon = [pokemon_mapping[i] for i in pokemon_ids]  # Loops through ids and looks up corresponding pokemon
     trainer_mapping[trainer_id] = Trainer(trainer_name, owned_pokemon)
 
     return trainer_mapping
