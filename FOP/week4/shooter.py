@@ -28,9 +28,11 @@ class Enemy:
         return player.hitpoints <= 0
 
 class Player:
-    def __init__(self, hitpoints, damage):
+    def __init__(self, hitpoints, damage, nth = None):
         self.hitpoints = hitpoints
         self.damage = damage
+        self.nth = nth
+        self.shot_counter = 0
 
     def __repr__(self):
         return f"Player(hitpoints = {self.hitpoints}, damage = {self.damage})"
@@ -39,17 +41,33 @@ class Player:
         self.hitpoints -= damage
         return self.hitpoints <= 0
 
+    def calc_dmg(self):
+        self.shot_counter += 1
+
+        # If no number, do nothing
+        if self.nth is None:
+            return self.damage
+
+        # If shot = nth number, double
+        if self.shot_counter % self.nth == 0:
+            return self.damage * 2
+
+        return self.damage
+
     def shoot_5_times(self):
         shots = 0
 
         while shots < 5 and Enemy.enemies:
+
             target = Enemy.enemies[0]
-            target.take_hit(self.damage)  # Target takes damage
+            dmg = self.calc_dmg()  # Fetch what damage the shot does
+            target.take_hit(dmg)  # Deal damage
 
             # Player takes damage
             if target in Enemy.enemies:
                 self.take_hit(target.damage)
 
+        shots += 1
 def duel (player):
     while True:
         if Enemy.enemies:  # If there are enemies, shoot
@@ -70,7 +88,7 @@ def duel (player):
 # Your script is in here (this makes sure it only runs if you run the specific file)
 if __name__ == "__main__":
      # Create a player
-    p = Player(50, 15)
+    p = Player(50, 15, 2)
 
     # Create some enemies
     e1 = Enemy(20, 10)
