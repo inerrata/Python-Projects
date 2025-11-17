@@ -9,7 +9,8 @@ class Enemy:
         self.damage = damage
 
         # Add instance to list
-        Enemy.enemies.append(self)    
+        Enemy.enemies.append(self)
+
     def __repr__(self):
         return f"Enemy(hitpoints = {self.hitpoints}, damage = {self.damage})"
 
@@ -20,7 +21,8 @@ class Enemy:
             # Remove once hp = 0
             if self in Enemy.enemies:
                 Enemy.enemies.remove(self)
-        return None
+            return True
+        return False
 
     def shoot(self, player):
         player.take_hit(self.damage)
@@ -28,7 +30,7 @@ class Enemy:
         return player.hitpoints <= 0
 
 class Player:
-    def __init__(self, hitpoints, damage, nth = None):
+    def __init__(self, hitpoints, damage, nth=None):
         self.hitpoints = hitpoints
         self.damage = damage
         self.nth = nth
@@ -63,19 +65,17 @@ class Player:
             dmg = self.calc_dmg()  # Fetch what damage the shot does
             target.take_hit(dmg)  # Deal damage
 
-            # Player takes damage
-            if target in Enemy.enemies:
-                self.take_hit(target.damage)
+            shots += 1
+        return len(Enemy.enemies) == 0  # Returns True if all are dead
 
-        shots += 1
-def duel (player):
+def duel(player):
     while True:
         if Enemy.enemies:  # If there are enemies, shoot
             player.shoot_5_times()
-            
+
         if not Enemy.enemies:
             print("The player won!")
-            break
+            return
 
         # Each enemy shoots once
         for enemy in Enemy.enemies[:]:  # Copy list to avoid errors
@@ -84,21 +84,20 @@ def duel (player):
             # If player dies, enemy win
             if player.hitpoints <= 0:
                 print("The enemies won!")
-            
+                return
+
 # Your script is in here (this makes sure it only runs if you run the specific file)
 if __name__ == "__main__":
-     # Create a player
-    p = Player(50, 15, 2)
 
-    # Create some enemies
-    e1 = Enemy(20, 10)
-    e2 = Enemy(30, 5)
-    e3 = Enemy(40, 8)
+    p = Player(50, 10)
 
-    # Start the duel
+    Enemy(15, 15)
+    Enemy(20, 15)
+    Enemy(10, 15)
+    Enemy(20, 15)
+
     duel(p)
 
-    # Print results
     print("\nFinal state:")
     print(p)
     print("Enemies:", Enemy.enemies)
