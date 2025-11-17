@@ -60,6 +60,7 @@ def add_trainer(trainer_mapping, trainer_name, trainer_id, pokemon_mapping, poke
         print(f"Error: Trainer ID {trainer_id} already exists!")
         return
 
+    # Loop through list of id's trainer owns
     for i in pokemon_ids:
         if i not in pokemon_mapping:
             print(f"Pokemon ID {i} not found!")
