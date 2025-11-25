@@ -1,14 +1,17 @@
 def fill_unique(lst, partial=None):
     # Partial stores the solution
     if partial is None:
+        # If not provided, init empty list
         partial = []
 
     # Base case; if length of partial is longer than list return 
     remaining = lst[len(partial):]
+    # e.g. two numbers already in, [len(partial):] takes list starting from index 2 to the end
     if not remaining:
+        # Remaining stores list we haven't filled, starts at pos right of numbers in partial
         return partial
 
-    # Split it so it can be evaluated index by index
+    # Split it to process first element and recursively do the rest
     head, *tail = remaining
 
     if head != 0:  # When head is non-zero
