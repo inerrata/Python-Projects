@@ -11,32 +11,37 @@ class ImageProcessor():
         self._is_rgb_mode = None
 
     def _check_image_loaded(self):
-        """Raises a ValueError if no image is currently loaded."""
+        # Raises a ValueError if no image is currently loaded.
         if self._image_array is None:
             raise ValueError("There is no image loaded.")
 
     #   Getter Methods
 
     def is_RGB_mode(self):
-        """Returns True for RGB format, False for color map format."""
+        # Returns True for RGB format, False for color map format.
         return self._is_rgb_mode
 
     def get_color_map(self):
-        """Returns the (ID->RGB) mapping"""
+        # Returns the dictionary that maps IDs to colors
         return self._color_map
 
     def get_array(self):
-        """Returns the image array."""
+        # Returns the raw numpy array of pixel data
         return self._image_array
 
     def shape(self):
-        """Returns the (width, height) dimensions (x, y) of the image."""
+        # Returns the (width, height) dimensions (x, y) of the image
         self._check_image_loaded()
         # Shape is (height, width, channels) or (height, width)
         return (self._image_array.shape[:2])
 
     # Load/Save Methods
-
+    """
+    Loads image from disk
+    For .png files: Opens with PIL, converts to RGB, stores as numpy array
+    For .pkl files: Loads pickled data expecting a (image_array, color_map) tuple
+    Sets the appropriate mode flag
+    """
     def load(self, filepath):
         filepath_lower = filepath.lower()
         if filepath_lower.endswith('.png'):
@@ -61,7 +66,11 @@ class ImageProcessor():
             )
 
     def save(self, filepath):
-        """Saves the current image (PNG for RGB, PKL for color map)."""
+        """
+        Saves current image
+        RGB mode: Converts numpy array to PIL Image and saves as PNG
+        Color map mode: Pickles the (image_array, color_map) tuple and saves as PKL
+        """
         self._check_image_loaded()
         if self.is_RGB_mode():
             img_to_save = Image.fromarray(self._image_array.astype(np.uint8))
@@ -72,7 +81,13 @@ class ImageProcessor():
                 pickle.dump(data_to_save, f)
 
     # Transformation Methods
-    
+    """
+    Divides each channel into bins segment
+    Creates cube IDs
+    Finds unique colours
+    Remaps and builds map
+    Stores result
+    """
     def _rgb_to_colormap(self, bins=2):
         rgb_array = self._image_array
         num_groups = bins ** 3
@@ -113,6 +128,11 @@ class ImageProcessor():
         self._is_rgb_mode = False
 
     def _colormap_to_rgb(self):
+        """
+        Creates empty RGB array
+        For each ID in the colour map, find all pixels
+        Sets pixels to the corresponding RGB colour
+        """
         ids = self._image_array
         color_map = self._color_map
 
@@ -164,7 +184,11 @@ class ImageProcessor():
             self._color_map = new_map
 
     def blur_RGB_images(self, size=3):
-        """Blurs RGB image by averaging area around each pixel (RGB only)."""
+        """
+        Take a size and area
+        Take central pixel
+        Average its surroundings
+        """
         self._check_image_loaded()
         if not self.is_RGB_mode():
             return
@@ -216,7 +240,12 @@ class ImageProcessor():
         )
 
     def pixelate_images(self, area, block_size=10):
-        """Pixelates a specific area of the image."""
+        """
+        Take area
+        Average the area
+        Change each pixel value to the average
+        Loop
+        """
         self._check_image_loaded()
         ((x_start, x_end), (y_start, y_end)) = area
         if block_size < 1:
