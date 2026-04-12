@@ -1,0 +1,25 @@
+Metadata-Version: 2.4
+Name: promptcruncher
+Version: 0.1.0
+Summary: Input-side prompt compression for LLMs. Strip tokens before the API call — free, local, no API needed.
+License: MIT
+Project-URL: Homepage, https://github.com/yourusername/promptcruncher
+Project-URL: Issues, https://github.com/yourusername/promptcruncher/issues
+Keywords: llm,tokens,compression,prompt,ai,openai,anthropic
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Provides-Extra: tokens
+Requires-Dist: tiktoken>=0.7; extra == "tokens"
+Provides-Extra: dev
+Requires-Dist: pytest>=8; extra == "dev"
+Requires-Dist: tiktoken>=0.7; extra == "dev"

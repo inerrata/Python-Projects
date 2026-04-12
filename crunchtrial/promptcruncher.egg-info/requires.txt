@@ -1,0 +1,7 @@
+
+[dev]
+pytest>=8
+tiktoken>=0.7
+
+[tokens]
+tiktoken>=0.7

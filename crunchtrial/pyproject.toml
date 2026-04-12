@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptcruncher"
+version = "0.1.0"
+description = "Input-side prompt compression for LLMs. Strip tokens before the API call — free, local, no API needed."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+keywords = ["llm", "tokens", "compression", "prompt", "ai", "openai", "anthropic"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Text Processing",
+]
+
+dependencies = []  # zero required deps — runs on stdlib alone
+
+[project.optional-dependencies]
+tokens = ["tiktoken>=0.7"]        # exact token counts
+dev = ["pytest>=8", "tiktoken>=0.7"]
+
+[project.scripts]
+promptcruncher = "promptcruncher.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/promptcruncher"
+Issues = "https://github.com/yourusername/promptcruncher/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["promptcruncher*"]
