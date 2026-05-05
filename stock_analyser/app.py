@@ -8,7 +8,9 @@ import plotly.graph_objects as go
 import plotly.express as px
 import pandas as pd
 import numpy as np
-from datetime import date, timedelta
+import json
+from datetime import date, timedelta, datetime as dt
+import extra_streamlit_components as stx
 from analysis import run_analysis, BENCHMARK
 
 # ── Page config ───────────────────────────────────────────────────────────────
@@ -173,6 +175,15 @@ OPTION_LABELS  = {f"{t} — {n}": t for t, n in CATALOGUE.items()}
 DEFAULT_LABELS = [lbl for lbl, t in OPTION_LABELS.items()
                   if t in ("AAPL", "MSFT", "GOOGL", "AMZN", "NVDA")]
 
+# ── Cookies ───────────────────────────────────────────────────────────────────
+
+cookie_manager = stx.CookieManager(key="portfolio_cookies")
+_saved_raw     = cookie_manager.get("portfolio_tickers")
+_saved_labels  = json.loads(_saved_raw) if _saved_raw else []
+# Drop any stale labels that are no longer in the catalogue
+_saved_labels  = [l for l in _saved_labels if l in OPTION_LABELS]
+INITIAL_LABELS = _saved_labels if _saved_labels else DEFAULT_LABELS
+
 # ── Sidebar — inputs ──────────────────────────────────────────────────────────
 
 with st.sidebar:
@@ -181,7 +192,7 @@ with st.sidebar:
     selected_labels = st.multiselect(
         "Search and select holdings",
         options=list(OPTION_LABELS.keys()),
-        default=DEFAULT_LABELS,
+        default=INITIAL_LABELS,
         placeholder="Type to search…",
     )
     tickers = [OPTION_LABELS[lbl] for lbl in selected_labels]
@@ -256,6 +267,12 @@ if run:
             st.stop()
 
     st.session_state["data"] = data
+    cookie_manager.set(
+        "portfolio_tickers",
+        json.dumps(selected_labels),
+        expires_at=dt(2030, 1, 1),
+        key="save_tickers",
+    )
 
 
 data = st.session_state.get("data")
