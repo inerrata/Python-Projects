@@ -178,8 +178,13 @@ DEFAULT_LABELS = [lbl for lbl, t in OPTION_LABELS.items()
 # ── Cookies ───────────────────────────────────────────────────────────────────
 
 cookie_manager = stx.CookieManager(key="portfolio_cookies")
-_saved_raw     = cookie_manager.get("portfolio_tickers")
-_saved_labels  = json.loads(_saved_raw) if _saved_raw else []
+_saved_raw    = cookie_manager.get("portfolio_tickers")
+if isinstance(_saved_raw, list):
+    _saved_labels = _saved_raw
+elif isinstance(_saved_raw, str):
+    _saved_labels = json.loads(_saved_raw)
+else:
+    _saved_labels = []
 # Drop any stale labels that are no longer in the catalogue
 _saved_labels  = [l for l in _saved_labels if l in OPTION_LABELS]
 INITIAL_LABELS = _saved_labels if _saved_labels else DEFAULT_LABELS
