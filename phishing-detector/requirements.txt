@@ -1,0 +1,9 @@
+lightgbm
+shap
+streamlit
+tldextract
+python-whois
+requests
+pandas
+scikit-learn
+python-dotenv

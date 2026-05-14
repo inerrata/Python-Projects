@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install *)",
+      "Bash(python -c \"import streamlit, plotly, analysis; print\\('All imports OK'\\)\")",
+      "Bash(findstr stock *)",
+      "Bash(python -c \"import ast, sys; ast.parse\\(open\\('app.py'\\).read\\(\\)\\); print\\('Syntax OK'\\)\")",
+      "Bash(python -c \"import ast; ast.parse\\(open\\('app.py', encoding='utf-8'\\).read\\(\\)\\); print\\('Syntax OK'\\)\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(gh auth *)",
+      "Bash(mkdir \"c:\\\\Users\\\\ziboz\\\\Documents\\\\Python Projects\\\\anomaly-detective\")",
+      "Bash(mkdir \"c:\\\\Users\\\\ziboz\\\\Documents\\\\Python Projects\\\\anomaly-detective\\\\anomaly_detective\")",
+      "Bash(mkdir \"c:\\\\Users\\\\ziboz\\\\Documents\\\\Python Projects\\\\anomaly-detective\\\\anomaly_detective\\\\detectors\")",
+      "Bash(mkdir \"c:\\\\Users\\\\ziboz\\\\Documents\\\\Python Projects\\\\anomaly-detective\\\\tests\")",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python -c ' *)"
+    ]
+  }
+}
